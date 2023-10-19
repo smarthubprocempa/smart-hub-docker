@@ -1,5 +1,6 @@
 #Project folders
 src/test_data
+src/models/*.pkl
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -171,3 +172,5 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+*.sh
