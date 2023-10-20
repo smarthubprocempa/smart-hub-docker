@@ -1,10 +1,13 @@
+from datetime import datetime
 import fastai.vision.all
+from fastai.vision.core import PILImage
 import fastai.vision.widgets
 import fastai
 import os
 
 caminho_atual = os.getcwd()
-PATH_FILES = "/workspace/files/"
+PATH_IMAGES = "/workspace/images/"
+PATH_OUTPUT = "/workspace/output/"
  
 
 def infer_images(learner: fastai.vision.all.Learner):
@@ -13,13 +16,19 @@ def infer_images(learner: fastai.vision.all.Learner):
     returnCsv = []
     returnCsv.append(headerCsv)
 
-    for filename in os.listdir(caminho_atual + PATH_FILES):
+    for filename in os.listdir(caminho_atual + PATH_IMAGES):
         if filename.endswith(".jpg"):
             print(f"Processando arquivo {filename}")
-            img = fastai.vision.widgets.PILImage.create(os.path.join(caminho_atual + PATH_FILES, filename))
-            pred, pred_idx, probs = learner.predict(img)
+            img = PILImage.create(caminho_atual + PATH_IMAGES + filename)
+            pred, classe, prob = learner.predict(img)
+            returnCsv.append(f"{filename},{pred},{classe},{prob}\n")
         else:
             print(f"Arquivo {filename} não é um jpg, ignorando")
+    save_csv(returnCsv)
 
-
-    
+def save_csv(csv):
+    print("Salvando csv")
+    # get time as string and add to output.csv to save csv with timestamp
+    file_name = "output.csv"+ str(datetime.now()) + ".csv"
+    with open(caminho_atual + PATH_OUTPUT + file_name, "w") as f: 
+        f.writelines(csv)
