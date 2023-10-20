@@ -4,11 +4,11 @@ FROM registry.procempa.com.br/python:3.9
 COPY /requirements.txt /tmp/
 WORKDIR /app
 RUN apt-get update && \
-apt-get install -y libgirepository1.0-dev libjpeg-dev ffmpeg libsm6 libxext6 && \
-pip install --no-cache-dir -r /tmp/requirements.txt && \
-apt-get -y autoremove && \
-apt-get -y clean && \
-rm -rf /tmp/*
+	apt-get install -y libgirepository1.0-dev libjpeg-dev ffmpeg libsm6 libxext6 && \
+	pip install --no-cache-dir -r /tmp/requirements.txt && \
+	apt-get -y autoremove && \
+	apt-get -y clean && \
+	rm -rf /tmp/*
 
 # Cópia da aplicação
 COPY /src /app

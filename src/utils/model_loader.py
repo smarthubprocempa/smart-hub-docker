@@ -18,7 +18,6 @@ def check_if_more_than_one_model():
     if total_de_arquivos > 1:
         if nome_variavel_ambiente in os.environ:
             valor_variavel_ambiente = os.environ[nome_variavel_ambiente]
-            print(f"Foi passado variavel de ambiente com nome do modelo, verificar agora se existe o modelo {valor_variavel_ambiente} na pasta")
             return valor_variavel_ambiente
         raise Exception(messages_exceptions.no_env_value)
     if total_de_arquivos == 0: 
@@ -38,11 +37,10 @@ def return_model_path():
         return caminho_atual + "/model/" + nome_modelo
     
 
-def load_model():
+def load_model() -> fastai.vision.all.Learner:
     path = return_model_path()
     print(f"Carregando modelo {path}")
     return fastai.vision.all.load_learner(path)
 
-learner = load_model()
 
 
