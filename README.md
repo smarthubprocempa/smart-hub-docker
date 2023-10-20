@@ -4,6 +4,8 @@
  
  Para executar o container deve ser executado o comando abaixo:
 
-`docker run -v /path/to/models:/app/models -d smart_hub_pkl:0.0.1`
+`docker run -v $PWD/model:/app/model --rm smart_hub_pkl-docker:0.0.1`
 
+Caso a pasta de modelo possua mais de um modelo, deve ser especificado atraves de variavel de ambiente MODEL_NAME qual modelo será utilizado.
 
+`docker run -v $PWD/model:/app/model -e MODEL_NAME=model_exemplo.pkl --rm smart_hub_pkl-docker:0.0.1`

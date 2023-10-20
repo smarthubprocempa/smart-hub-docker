@@ -2,6 +2,7 @@
 src/test_data
 src/models/*.pkl
 models
+workspace
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
