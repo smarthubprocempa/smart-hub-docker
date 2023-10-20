@@ -1,6 +1,7 @@
 #Project folders
 src/test_data
 src/models/*.pkl
+models
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
