@@ -77,6 +77,7 @@ Para executar o container deve ser executado o comando abaixo:
 ## Criando o arquivo config.yaml
 
 Por padrão o docker utilizará o config.yaml na raiz do workspace
+
 Exemplo de arquivo de configuração config.yaml para modelo em tensorflow
 
 ```
