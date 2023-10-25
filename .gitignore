@@ -4,6 +4,7 @@ src/models/*.pkl
 models
 workspace
 *.pkl
+steps_to_environment.MD
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/

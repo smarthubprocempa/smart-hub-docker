@@ -6,11 +6,11 @@ import fastai
 import os
 
 caminho_atual = os.getcwd()
-PATH_IMAGES = "/workspace/images/"
-PATH_OUTPUT = "/workspace/output/"
+PATH_IMAGES = caminho_atual+"/workspace/images/"
+PATH_OUTPUT = caminho_atual+"/workspace/output/"
  
 
-def infer_images(learner: fastai.vision.all.Learner):
+def infere_images(learner: fastai.vision.all.Learner):
     print("Inferindo imagens")
     headerCsv = "filename,prediction,class,probability\n"
     returnCsv = []
