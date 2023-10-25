@@ -1,4 +1,4 @@
-# Lista de libs utilizadas no projeto do Pothole e versão do python
+# Smart-hub-procempa Docker
 
 ## Criando ambiente para execução local
 
