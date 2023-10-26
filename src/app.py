@@ -5,7 +5,7 @@ if __name__ == "__main__":
     print("Start application")
     try:
         #learner = model_loader.load_model_keras()
-        tipo_modelo = model_loader.get_model_type()
+        tipo_modelo = model_loader.load_model()
         print(tipo_modelo)
         print("teste")
     except Exception as e:

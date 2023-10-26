@@ -18,6 +18,7 @@ PATH_CONFIG = caminho_atual+"/workspace/config.yaml"
 def read_config():
     with open(PATH_CONFIG) as yaml_file:
         data = yaml.safe_load(yaml_file)
+    print(data)
     return data
 
 def get_model_type():
@@ -56,15 +57,17 @@ def return_model_path():
     else:
         return PATH_MODEL + nome_modelo
     
+def load_model():
+    print("Carregando modelo")
 
-def load_model() -> fastai.vision.all.Learner:
-    path = return_model_path()
-    print(f"Carregando modelo {path}")
-    return fastai.vision.all.load_learner(path)
+
+def load_model_pkl():
+    # path = return_model_path()
+     print(f"Carregando modelo")
+    # return fastai.vision.all.load_learner(path)  
+
 
 def load_model_keras():
-    #path = return_model_path()
-    #print(f"Carregando modelo {path}")
     return keras.models.load_model(PATH_MODEL+"")
     # TODO: load keras model
 
