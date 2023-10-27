@@ -29,7 +29,7 @@ def save_csv(csv):
     with open(PATH_OUTPUT + file_name, "w") as f: 
         f.writelines(csv)
 
-def infere_images_fastai(model: fastai.vision.all.Learner):
+def infere_images_fastai(model: fastai.vision.all.Learner, config):
 
     print("Inferindo imagens")
     headerCsv = "filename,prediction,class,probability\n"
@@ -59,8 +59,10 @@ def infere_images_keras(model, config):
             img = image.load_img(PATH_IMAGES + filename, target_size=(img_size, img_size))
             img_array = image.img_to_array(img)
             img_array = tf.expand_dims(img_array, 0)
+            #normalize tensor to 0-1
+            img_array = img_array/255.0
             predictions = model.predict(img_array)
-            score = tf.nn.softmax(predictions[0])
+            score = predictions[0] 
             class_names = config["model"]["classes"]
             returnCsv.append(f"{filename},{class_names[np.argmax(score)]},{np.argmax(score)},{100 * np.max(score)}\n")
         else:
