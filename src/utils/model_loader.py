@@ -53,9 +53,10 @@ def load_model():
     model_type = get_model_type(config["model"]["name"])
     path = get_model_path(config)
     if(model_type == "fastai"):
-        return load_model_pkl(path)
+        return load_model_pkl(path), config
     if(model_type == "keras"):
-        return load_model_keras(path)
+        return load_model_keras(path), config
+    raise Exception(messages_exceptions.invalid_model_type)
 
 
 
