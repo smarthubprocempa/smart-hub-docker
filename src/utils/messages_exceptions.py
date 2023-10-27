@@ -8,3 +8,7 @@ no_model_in_folder = f"""Nenhum modelo encontrado na pasta de modelos, lembre-se
 docker run -v /path/to/models:/app/models -p 5000:5000 -d smart_hub_pkl:{version}"""
 
 invalid_model_type = "Tipo de modelo inválido, o modelo deve ser .pkl, h5, ou pasta com modelo keras e seus weights"
+
+no_model_in_config = "Nenhum campo 'model' encontrado no arquivo de configuração, verificar se a formatação do yaml esta correta"
+
+no_name_in_config = "Nenhum campo 'name' encontrado no arquivo de configuração, verificar se a formatação do yaml esta correta"
