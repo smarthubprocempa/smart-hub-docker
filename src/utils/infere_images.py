@@ -21,6 +21,8 @@ def infere_images(model, config):
         return infere_images_fastai(model, config)
     if isinstance(model, Sequential):
         return infere_images_keras(model, config)
+    if isinstance(model, tf.lite.Interpreter):
+        return infere_images_tflite(model, config)
 
 def save_csv(csv):
     print("Salvando csv")
@@ -69,6 +71,30 @@ def infere_images_keras(model, config):
             print(f"Arquivo {filename} não é um jpg, ignorando")
     save_csv(returnCsv)
 
+def infere_images_tflite(model: tf.lite.Interpreter, config):
+    #TODO
+    print("Inferindo imagens")
+    headerCsv = "filename,prediction,class,probability\n"
+    returnCsv = []
+    returnCsv.append(headerCsv)
+
+    for filename in os.listdir(PATH_IMAGES):
+        if filename.endswith(".jpg"):
+            print(f"Processando arquivo {filename}")
+            img = image.load_img(PATH_IMAGES + filename, target_size=(224, 224))
+            img_array = image.img_to_array(img)
+            img_array = tf.expand_dims(img_array, 0)
+            #normalize tensor to 0-1
+            img_array = img_array/255.0
+            model.set_tensor(model.get_input_details()[0]['index'], img_array)
+            model.invoke()
+            predictions = model.get_tensor(model.get_output_details()[0]['index'])
+            score = predictions[0]
+            class_names = config["model"]["classes"]
+            returnCsv.append(f"{filename},{class_names[np.argmax(score)]},{np.argmax(score)},{100 * np.max(score)}\n")
+
+    
+ 
     
 
 

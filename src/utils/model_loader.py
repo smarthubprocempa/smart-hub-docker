@@ -37,6 +37,8 @@ def get_model_type(nome_modelo):
         return "fastai"
     if(nome_modelo.endswith(".h5")):
         return "keras"
+    if(nome_modelo.endswith(".tflite")):
+        return "tflite"
     
     raise Exception(messages_exceptions.invalid_model_type)
 
@@ -56,6 +58,8 @@ def load_model():
         return load_model_pkl(path), config
     if(model_type == "keras"):
         return load_model_keras(path), config
+    if  (model_type == "tflite"):
+        return load_model_tflite(path), config
     raise Exception(messages_exceptions.invalid_model_type)
 
 
@@ -69,5 +73,8 @@ def load_model_pkl(path) -> fastai.vision.all.Learner:
 def load_model_keras(path):
     return keras.models.load_model(path)
     # TODO: load keras model
+
+def load_model_tflite(path):
+    return tf.lite.Interpreter(model_path=path)
 
 
