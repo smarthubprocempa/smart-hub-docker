@@ -86,6 +86,7 @@ model:
   img_size: 512 **
   img_mean: 0
   img_std: 255
+  classes ["buraco", "normal"]
 ```
 
 
@@ -99,6 +100,7 @@ model:
   img_size: 512 **
   img_mean: 0
   img_std: 255
+  classes: ["buraco", "normal"]
 ```
 
 
