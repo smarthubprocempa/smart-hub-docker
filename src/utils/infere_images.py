@@ -72,16 +72,19 @@ def infere_images_keras(model, config):
     save_csv(returnCsv)
 
 def infere_images_tflite(model: tf.lite.Interpreter, config):
+    img_size = config["model"]["img_size"] if "img_size" in config["model"] else 224
     #TODO
     print("Inferindo imagens")
     headerCsv = "filename,prediction,class,probability\n"
     returnCsv = []
     returnCsv.append(headerCsv)
+    model.allocate_tensors()
+    img_size = model.get_input_details()[0]['shape'][1]
 
     for filename in os.listdir(PATH_IMAGES):
         if filename.endswith(".jpg"):
             print(f"Processando arquivo {filename}")
-            img = image.load_img(PATH_IMAGES + filename, target_size=(224, 224))
+            img = image.load_img(PATH_IMAGES + filename, target_size=(img_size, img_size))
             img_array = image.img_to_array(img)
             img_array = tf.expand_dims(img_array, 0)
             #normalize tensor to 0-1
@@ -91,7 +94,12 @@ def infere_images_tflite(model: tf.lite.Interpreter, config):
             predictions = model.get_tensor(model.get_output_details()[0]['index'])
             score = predictions[0]
             class_names = config["model"]["classes"]
-            returnCsv.append(f"{filename},{class_names[np.argmax(score)]},{np.argmax(score)},{100 * np.max(score)}\n")
+            # print(predictions)
+            returnCsv.append(f"{filename},{class_names[np.argmax(score)]},{np.argmax(score)},{np.max(score)}\n")
+        else:
+            print(f"Arquivo {filename} não é um jpg, ignorando")
+    save_csv(returnCsv)
+
 
     
  
